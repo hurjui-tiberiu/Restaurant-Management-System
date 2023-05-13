@@ -30,6 +30,21 @@ namespace RestaurantManagementAPI.Application.Services
             return mapper.Map<UserGetDto>(user);
         }
 
+        public async Task<UserLoginResponseDto> Login(UserLoginDto userLoginDto)
+        {
+            var user = await userRepository.GetUserByEmail(userLoginDto.Email);
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+            if (user.Password != userLoginDto.Password)
+            {
+                throw new Exception("Invalid password");
+            }
+
+            return mapper.Map<UserLoginResponseDto>(user);
+        }
+
         public async Task<Guid> Register(UserDto userDto)
         {
             var user = mapper.Map<User>(userDto);

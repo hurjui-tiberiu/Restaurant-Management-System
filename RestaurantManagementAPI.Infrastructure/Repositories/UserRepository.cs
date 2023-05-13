@@ -95,5 +95,36 @@ namespace RestaurantManagementAPI.Infrastructure.Repositories
             }
         }
 
+        public async Task<User?> GetUserByEmail(string email)
+        {
+            string connectionString = configuration.GetConnectionString("DefaultConnection")!;
+            using (OracleConnection connection = new OracleConnection(connectionString))
+            {
+                await connection.OpenAsync();
+                using (OracleCommand command = new OracleCommand(Utilities.getUserByEmailQuery, connection))
+                {
+                    command.Parameters.Add("EmailAddress", OracleDbType.NVarchar2).Value = email;
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        if (reader.Read())
+                        {
+                            User user = new User
+                            {
+                                Id = new Guid((byte[])reader["ID"]),
+                                FirstName = reader["FirstName"].ToString()!,
+                                LastName = reader["LastName"].ToString()!,
+                                EmailAddress = reader["EmailAddress"].ToString()!,
+                                Password = reader["Password"].ToString()!,
+                                PhoneNumber = reader["PhoneNumber"].ToString()!,
+                                Address = reader["Address"].ToString()!,
+                                Role = (Role)(short)reader["Role"]
+                            };
+                            return user;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
     }
 }

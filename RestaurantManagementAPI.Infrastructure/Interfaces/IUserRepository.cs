@@ -7,5 +7,6 @@ namespace RestaurantManagementAPI.Infrastructure.Interfaces
         public Task Register(User user);
         public Task<User?> GetUserById(Guid id);
         public Task DeleteUserById(Guid id);
+        public Task<User?> GetUserByEmail(string email);
     }
 }

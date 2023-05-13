@@ -28,12 +28,21 @@ namespace RestaurantManagementAPI.Controllers
             var user = await userService.GetUserById(id);
             return Ok(user);
         }
+
         [HttpDelete, Route("users/{id}")]
         public async Task<IActionResult> DeleteUserById(Guid id)
         {
             await userService.DeleteUserById(id);
 
             return NoContent();
+        }
+
+        [HttpPost, Route("users/login")]
+        public async Task<IActionResult> Login(UserLoginDto userLoginDto)
+        {
+            var userLoginResponse = await userService.Login(userLoginDto);
+
+            return Ok(userLoginResponse);
         }
     }
 }

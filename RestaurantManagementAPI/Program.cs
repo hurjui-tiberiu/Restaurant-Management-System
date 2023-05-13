@@ -22,6 +22,14 @@ namespace RestaurantManagementAPI
 
             builder.Services.AddAutoMapper(typeof(UserProfile));
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder => builder.AllowAnyOrigin()
+                                      .AllowAnyMethod()
+                                      .AllowAnyHeader());
+            });
+
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
@@ -33,6 +41,8 @@ namespace RestaurantManagementAPI
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
+
+            app.UseCors("AllowAll");
 
 
             app.MapControllers();
