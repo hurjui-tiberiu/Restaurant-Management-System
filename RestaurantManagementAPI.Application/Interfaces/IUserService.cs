@@ -6,5 +6,7 @@ namespace RestaurantManagementAPI.Application.Interfaces
     {
         public Task<Guid> Register(UserDto userDto);
         public Task<UserGetDto> GetUserById(Guid id);
+
+        public Task DeleteUserById(Guid id);
     }
 }

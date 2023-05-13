@@ -23,9 +23,7 @@ namespace RestaurantManagementAPI.Infrastructure.Repositories
             {
                 await connection.OpenAsync();
 
-                string query = "SELECT * FROM \"User\" WHERE ID = :userId";
-
-                using (OracleCommand command = new OracleCommand(query, connection))
+                using (OracleCommand command = new OracleCommand(Utilities.getUserQuery, connection))
                 {
                     command.Parameters.Add("userId", OracleDbType.Raw).Value = id;
 
@@ -77,5 +75,25 @@ namespace RestaurantManagementAPI.Infrastructure.Repositories
                 }
             }
         }
+
+        public async Task DeleteUserById(Guid userId)
+        {
+            string connectionString = configuration.GetConnectionString("DefaultConnection")!;
+
+            using (OracleConnection connection = new OracleConnection(connectionString))
+            {
+                await connection.OpenAsync();
+
+                string query = "DELETE FROM \"User\" WHERE ID = :ID";
+
+                using (OracleCommand command = new OracleCommand(query, connection))
+                {
+                    command.Parameters.Add("ID", OracleDbType.Raw).Value = userId;
+
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
+
     }
 }
