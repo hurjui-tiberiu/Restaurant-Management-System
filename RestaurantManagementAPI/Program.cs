@@ -1,4 +1,10 @@
 
+using RestaurantManagementAPI.Application.Interfaces;
+using RestaurantManagementAPI.Application.Mapper;
+using RestaurantManagementAPI.Application.Services;
+using RestaurantManagementAPI.Infrastructure.Interfaces;
+using RestaurantManagementAPI.Infrastructure.Repositories;
+
 namespace RestaurantManagementAPI
 {
     public class Program
@@ -7,16 +13,17 @@ namespace RestaurantManagementAPI
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUserService, UserService>();
+
+            builder.Services.AddAutoMapper(typeof(UserProfile));
+
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();

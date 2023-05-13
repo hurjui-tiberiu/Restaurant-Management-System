@@ -7,9 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="H.Formatters.BinaryFormatter" Version="2.0.47" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.2" />
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="3.21.100" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RestaurantManagementAPI.Application\RestaurantManagementAPI.Application.csproj" />
+    <ProjectReference Include="..\RestaurantManagementAPI.Infrastructure\RestaurantManagementAPI.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
