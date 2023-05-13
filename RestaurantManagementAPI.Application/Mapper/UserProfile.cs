@@ -9,6 +9,8 @@ namespace RestaurantManagementAPI.Application.Mapper
         public UserProfile()
         {
             CreateMap<UserDto, User>();
+            
+            CreateMap<User, UserGetDto>();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Oracle.ManagedDataAccess.Client;
+using RestaurantManagementAPI.Domain;
 using RestaurantManagementAPI.Domain.Entities;
 using RestaurantManagementAPI.Infrastructure.Interfaces;
 
@@ -13,11 +14,51 @@ namespace RestaurantManagementAPI.Infrastructure.Repositories
         {
             this.configuration = configuration;
         }
+
+        public async Task<User?> GetUserById(Guid id)
+        {
+            string connectionString = configuration.GetConnectionString("DefaultConnection")!;
+
+            using (OracleConnection connection = new OracleConnection(connectionString))
+            {
+                await connection.OpenAsync();
+
+                string query = "SELECT * FROM \"User\" WHERE ID = :userId";
+
+                using (OracleCommand command = new OracleCommand(query, connection))
+                {
+                    command.Parameters.Add("userId", OracleDbType.Raw).Value = id;
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        if (reader.Read())
+                        {
+                            User user = new User
+                            {
+                                Id = new Guid((byte[])reader["ID"]),
+                                FirstName = reader["FirstName"].ToString()!,
+                                LastName = reader["LastName"].ToString()!,
+                                EmailAddress = reader["EmailAddress"].ToString()!,
+                                Password = reader["Password"].ToString()!,
+                                PhoneNumber = reader["PhoneNumber"].ToString()!,
+                                Address = reader["Address"].ToString()!,
+                                Role = (Role)(short)reader["Role"]
+                            };
+
+                            return user;
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
         public async Task Register(User user)
         {
             string connectionString = configuration.GetConnectionString("DefaultConnection")!;
 
-            using (OracleConnection connection = new OracleConnection("Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=49161))(CONNECT_DATA=(SID=XE)));User ID=system;Password=oracle;"))
+            using (OracleConnection connection = new OracleConnection(connectionString))
             {
                 await connection.OpenAsync();
 

@@ -5,11 +5,11 @@ using RestaurantManagementAPI.Application.Models;
 namespace RestaurantManagementAPI.Controllers
 {
     [ApiController]
-    public class RestaurantController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly IUserService userService;
 
-        public RestaurantController(IUserService userService)
+        public UserController(IUserService userService)
         {
             this.userService = userService;
         }
@@ -21,5 +21,14 @@ namespace RestaurantManagementAPI.Controllers
 
             return Ok(userId);
         }
+
+        [HttpGet, Route("{id}")]
+        public async Task<IActionResult> GetUserById(Guid id)
+        {
+            var user = await userService.GetUserById(id);
+            return Ok(user);
+        }
+        
+        
     }
 }

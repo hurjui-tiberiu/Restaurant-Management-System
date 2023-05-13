@@ -18,6 +18,13 @@ namespace RestaurantManagementAPI.Application.Services
             this.mapper = mapper;
         }
 
+        public async Task<UserGetDto> GetUserById(Guid id)
+        {
+            var user = await userRepository.GetUserById(id);
+
+            return mapper.Map<UserGetDto>(user);
+        }
+
         public async Task<Guid> Register(UserDto userDto)
         {
             var user = mapper.Map<User>(userDto);
