@@ -15,6 +15,10 @@ namespace RestaurantManagementAPI.Application.Mapper
             CreateMap<User, UserLoginResponseDto>()
                 .ForMember(dest => dest.userRole,
                                    opt => opt.MapFrom(src => src.Role.ToString()));
+
+            CreateMap<User, UserDto>();
+
+            CreateMap<UserRegisterDto, User>();
         }
     }
 }

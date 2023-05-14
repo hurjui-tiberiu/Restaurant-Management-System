@@ -45,7 +45,7 @@ namespace RestaurantManagementAPI.Application.Services
             return mapper.Map<UserLoginResponseDto>(user);
         }
 
-        public async Task<Guid> Register(UserDto userDto)
+        public async Task<Guid> Register(UserRegisterDto userDto)
         {
             var user = mapper.Map<User>(userDto);
 
@@ -55,6 +55,22 @@ namespace RestaurantManagementAPI.Application.Services
             await userRepository.Register(user);
 
             return user.Id;
+        }
+
+        public async Task<UserDto> UpdateUser(UserDto userDto, Guid id)
+        {
+            var user = await userRepository.GetUserById(id);
+
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+
+            var mappedUser = mapper.Map(userDto, user);
+
+            await userRepository.UpdateUser(mappedUser);
+
+            return mapper.Map<UserDto>(mappedUser);
         }
     }
 }

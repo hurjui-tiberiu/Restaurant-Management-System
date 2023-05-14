@@ -126,5 +126,34 @@ namespace RestaurantManagementAPI.Infrastructure.Repositories
             }
             return null;
         }
+
+        public async Task UpdateUser(User user)
+        {
+            string connectionString = configuration.GetConnectionString("DefaultConnection")!;
+
+            using (OracleConnection connection = new OracleConnection(connectionString))
+            {
+                await connection.OpenAsync();
+
+                string updateUserQuery = @"UPDATE ""User"" SET 
+                                    FirstName = :FirstName,
+                                    LastName = :LastName,
+                                    EmailAddress = :EmailAddress,
+                                    PhoneNumber = :PhoneNumber,
+                                    Address = :Address
+                                    WHERE Id = :Id";
+
+                using (OracleCommand command = new OracleCommand(updateUserQuery, connection))
+                {
+                    command.Parameters.Add("FirstName", OracleDbType.NVarchar2).Value = user.FirstName;
+                    command.Parameters.Add("LastName", OracleDbType.NVarchar2).Value = user.LastName;
+                    command.Parameters.Add("EmailAddress", OracleDbType.NVarchar2).Value = user.EmailAddress;
+                    command.Parameters.Add("PhoneNumber", OracleDbType.NVarchar2).Value = user.PhoneNumber;
+                    command.Parameters.Add("Address", OracleDbType.NVarchar2).Value = user.Address;
+                    command.Parameters.Add("Id", OracleDbType.Varchar2).Value = user.Id.ToString();
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
     }
 }

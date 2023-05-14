@@ -15,7 +15,7 @@ namespace RestaurantManagementAPI.Controllers
         }
 
         [HttpPost("users/register")]
-        public async Task<IActionResult> Register(UserDto userDto)
+        public async Task<IActionResult> Register(UserRegisterDto userDto)
         {
             var userId = await userService.Register(userDto);
 
@@ -43,6 +43,14 @@ namespace RestaurantManagementAPI.Controllers
             var userLoginResponse = await userService.Login(userLoginDto);
 
             return Ok(userLoginResponse);
+        }
+
+        [HttpPut, Route("users/{id}")]
+        public async Task<IActionResult> UpdateUser(UserDto userDto, Guid id)
+        {
+            var userId = await userService.UpdateUser(userDto, id);
+
+            return Ok(userId);
         }
     }
 }
