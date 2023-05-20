@@ -8,6 +8,10 @@
         public const string getUserByEmailQuery = "SELECT * FROM \"User\" WHERE EmailAddress = :EmailAddress";
         public const string UpdateUserQuery = "UPDATE \"User\" SET FirstName = :FirstName, LastName = :LastName, EmailAddress = :EmailAddress, Password = :Password, PhoneNumber = :PhoneNumber, Address = :Address, Role = :Role WHERE ID = :Id";
 
+        public const string createEventTypeQuery= @"INSERT INTO ""EventType"" (ID, Title)
+                                VALUES (:ID, :Title)";
+
+        public const string getAllEventTypesQuery = "SELECT * FROM \"EventType\"";
 
 
     }

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using RestaurantManagementAPI.Application.Interfaces;
-using RestaurantManagementAPI.Application.Models;
+using RestaurantManagementAPI.Application.Models.User;
 using RestaurantManagementAPI.Domain;
 using RestaurantManagementAPI.Domain.Entities;
 using RestaurantManagementAPI.Infrastructure.Interfaces;
@@ -50,7 +50,7 @@ namespace RestaurantManagementAPI.Application.Services
             var user = mapper.Map<User>(userDto);
 
             user.Id = Guid.NewGuid();
-            user.Role = Role.User;
+            user.Role = Role.Admin;
 
             await userRepository.Register(user);
 

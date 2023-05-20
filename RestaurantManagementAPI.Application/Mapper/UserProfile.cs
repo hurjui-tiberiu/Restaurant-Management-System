@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using RestaurantManagementAPI.Application.Models;
+using RestaurantManagementAPI.Application.Models.User;
 using RestaurantManagementAPI.Domain.Entities;
 
 namespace RestaurantManagementAPI.Application.Mapper

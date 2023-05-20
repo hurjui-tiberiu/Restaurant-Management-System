@@ -1,4 +1,4 @@
-﻿using RestaurantManagementAPI.Application.Models;
+﻿using RestaurantManagementAPI.Application.Models.User;
 
 namespace RestaurantManagementAPI.Application.Interfaces
 {

@@ -1,4 +1,4 @@
-﻿namespace RestaurantManagementAPI.Application.Models
+﻿namespace RestaurantManagementAPI.Application.Models.User
 {
     public class UserRegisterDto
     {

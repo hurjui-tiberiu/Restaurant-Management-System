@@ -20,7 +20,11 @@ namespace RestaurantManagementAPI
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
 
+            builder.Services.AddScoped<IEventTypeRepository, EventTypeRepository>();
+            builder.Services.AddScoped<IEventTypeService, EventTypeService>();
+
             builder.Services.AddAutoMapper(typeof(UserProfile));
+            builder.Services.AddAutoMapper(typeof(EventTypeProfile));
 
             builder.Services.AddCors(options =>
             {
