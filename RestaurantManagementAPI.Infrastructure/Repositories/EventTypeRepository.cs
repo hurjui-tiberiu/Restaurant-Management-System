@@ -54,5 +54,10 @@ namespace RestaurantManagementAPI.Infrastructure.Repositories
             }
             return eventTypes;
         }
+
+        public async Task<EventType> GetEventTypeById(Guid id)
+        {
+
+        }
     }
 }

@@ -30,5 +30,11 @@ namespace RestaurantManagementAPI.Controllers
 
             return Ok(eventTypes);
         }
+
+        [HttpGet("{id}")]
+        public async Task GetEventTypeById(Guid id)
+        {
+            
+        }
     }
 }
