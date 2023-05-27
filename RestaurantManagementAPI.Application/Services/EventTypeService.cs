@@ -27,11 +27,39 @@ namespace RestaurantManagementAPI.Application.Services
             return eventType.Id;
         }
 
+        public async Task DeleteEvent(Guid id)
+        {
+            await eventTypeRepository.DeleteEventType(id);
+        }
+
         public async Task<List<EventType>> GetAllEvents()
         {
             var eventTypes = await eventTypeRepository.GetAllEvents();
 
             return eventTypes;
+        }
+
+        public async Task<EventType> GetEvent(Guid id)
+        {
+            var eventType = await eventTypeRepository.GetEventTypeById(id);
+
+            return eventType;
+        }
+
+        public async Task<Guid> UpdateEventType(EventTypeDto eventType, Guid id)
+        {
+            var eventTypeToUpdate = await eventTypeRepository.GetEventTypeById(id);
+
+            if (eventTypeToUpdate == null)
+            {
+                throw new Exception("EventType not found");
+            }
+
+            var eventTypeMapped = mapper.Map(eventType, eventTypeToUpdate);
+
+            await eventTypeRepository.UpdateEventType(eventTypeMapped);
+
+            return eventTypeMapped.Id;
         }
     }
 }

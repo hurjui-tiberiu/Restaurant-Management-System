@@ -7,5 +7,7 @@ namespace RestaurantManagementAPI.Infrastructure.Interfaces
         public Task CreateEventType(EventType eventType);
         public Task<List<EventType>> GetAllEvents();
         public Task<EventType> GetEventTypeById(Guid id);
+        public Task DeleteEventType(Guid id);
+        public Task UpdateEventType(EventType eventType);
     }
 }

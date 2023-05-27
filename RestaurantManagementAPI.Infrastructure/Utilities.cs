@@ -13,6 +13,12 @@
 
         public const string getAllEventTypesQuery = "SELECT * FROM \"EventType\"";
 
+        public const string getEventTypeByIdQuery = "SELECT * FROM \"EventType\" WHERE ID = :ID";
+
+        public const string deleteEventTypeQuery = "DELETE FROM \"EventType\" WHERE ID = :ID";
+
+        public const string updateEventTypeQuery = "UPDATE \"EventType\" SET Title = :Title WHERE ID = :Id";
+
 
     }
 }

@@ -31,10 +31,31 @@ namespace RestaurantManagementAPI.Controllers
             return Ok(eventTypes);
         }
 
-        [HttpGet("{id}")]
-        public async Task GetEventTypeById(Guid id)
+        [HttpGet("eventtypes/{id}")]
+        public async Task<IActionResult> GetEventTypeById(Guid id)
         {
+            var eventType = await eventTypeService.GetEvent(id);
+
             
+            return Ok(eventType);
         }
+
+        [HttpDelete("eventtypes/{id}")]
+        public async Task<IActionResult> DeleteEventType(Guid id)
+        {
+            await eventTypeService.DeleteEvent(id);
+
+            return Ok();
+        }
+
+        [HttpPut("eventtypes/{id}")]
+        public async Task<IActionResult> UpdateEventType(EventTypeDto eventType, Guid id)
+        {
+            var eventTypeId = await eventTypeService.UpdateEventType(eventType, id);
+
+            return Ok(eventTypeId);
+        }
+
     }
 }
+ 
